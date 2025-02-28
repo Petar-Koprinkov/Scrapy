@@ -32,6 +32,7 @@ class BookspiderSpider(scrapy.Spider):
         table_rows = response.css('table tr')
 
         yield {
+            'url': response.url,
             'title': book_details.css("h1::text").get(),
             'price': book_details.css(".price_color::text").get(),
             'available': book_details.xpath("normalize-space(//p[@class='instock availability'])").get(),
