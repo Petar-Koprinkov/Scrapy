@@ -12,18 +12,19 @@ class BookspiderSpider(scrapy.Spider):
         for book in books:
             book_url = book.css('h3 a ::attr(href)').get()
 
-            book_page = 'https://books.toscrape.com/' + book_url
+            if 'catalogue/' in book_url:
+                book_page = 'https://books.toscrape.com/' + book_url
+            else:
+                book_page = 'https://books.toscrape.com/catalogue/' + book_url
 
             yield response.follow(book_page, callback=self.parse_book)
 
-        next_page = response.css('li.next a::attr(href)').get()
-
-        if next_page:
+        next_page = response.css('li.next a ::attr(href)').get()
+        if next_page is not None:
             if 'catalogue/' in next_page:
                 next_page_url = 'https://books.toscrape.com/' + next_page
             else:
                 next_page_url = 'https://books.toscrape.com/catalogue/' + next_page
-
             yield response.follow(next_page_url, callback=self.parse)
 
     def parse_book(self, response):
