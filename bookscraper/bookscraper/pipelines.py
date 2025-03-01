@@ -10,20 +10,19 @@ from itemadapter import ItemAdapter
 
 class BookscraperPipeline:
     def process_item(self, item, spider):
-
         adapter = ItemAdapter(item)
 
-        stars = adapter.get('stars')
+        star_mapping = {
+            "zero": 0,
+            "one": 1,
+            "two": 2,
+            "three": 3,
+            "four": 4,
+            "five": 5
+        }
 
-        if stars == "zero":
-            adapter['stars'] = 0
-        elif stars == "one":
-            adapter['stars'] = 1
-        elif stars == "two":
-            adapter['stars'] = 2
-        elif stars == "three":
-            adapter['stars'] = 3
-        elif stars == "four":
-            adapter['stars'] = 4
-        elif stars == "five":
-            adapter['stars'] = 5
+        stars = adapter.get('stars_count')
+        if stars in star_mapping:
+            adapter['stars_count'] = star_mapping[stars]
+
+        return item
