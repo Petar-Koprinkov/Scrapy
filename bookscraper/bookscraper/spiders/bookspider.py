@@ -1,4 +1,5 @@
 import scrapy
+from bookscraper.items import BookItem
 
 
 class BookspiderSpider(scrapy.Spider):
@@ -32,16 +33,18 @@ class BookspiderSpider(scrapy.Spider):
         boarder = response.css('.breadcrumb')
         table_rows = response.css('table tr')
 
-        yield {
-            'url': response.url,
-            'title': book_details.css("h1::text").get(),
-            'price': book_details.css(".price_color::text").get(),
-            'available': book_details.xpath("normalize-space(//p[@class='instock availability'])").get(),
-            'stars_count': book_details.css(".star-rating::attr(class)").get().split()[1].lower(),
-            'category': boarder.xpath("//li[@class='active']/preceding-sibling::li[1]/a/text()").get(),
-            'product_type': table_rows[1].css("td::text").get(),
-            'price_without_tax': table_rows[2].css("td::text").get(),
-            'price_with_tax': table_rows[3].css("td::text").get(),
-            'tax': table_rows[4].css("td::text").get(),
-            'number_of_reviews': table_rows[6].css("td::text").get(),
-        }
+        book_item = BookItem()
+
+        book_item['url'] = response.url
+        book_item['title'] = book_details.css("h1::text").get()
+        book_item['price'] = book_details.css(".price_color::text").get()
+        book_item['available'] = book_details.xpath("normalize-space(//p[@class='instock availability'])").get()
+        book_item['stars_count'] = book_details.css(".star-rating::attr(class)").get().split()[1].lower()
+        book_item['category'] = boarder.xpath("//li[@class='active']/preceding-sibling::li[1]/a/text()").get()
+        book_item['product_type'] = table_rows[1].css("td::text").get()
+        book_item['price_without_tax'] = table_rows[2].css("td::text").get()
+        book_item['price_with_tax'] = table_rows[3].css("td::text").get()
+        book_item['tax'] = table_rows[4].css("td::text").get()
+        book_item['number_of_reviews'] = table_rows[6].css("td::text").get()
+
+        yield book_item
