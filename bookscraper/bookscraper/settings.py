@@ -12,7 +12,7 @@ BOT_NAME = "bookscraper"
 SPIDER_MODULES = ["bookscraper.spiders"]
 NEWSPIDER_MODULE = "bookscraper.spiders"
 
-#With 'FEED' setting we decide in which file format we want to save our data.
+#With 'FEEDS' setting we decide in which file format we want to save our data.
 
 # FEEDS = {
 #    'data.csv': {'format': 'csv'},
