@@ -34,3 +34,18 @@ class BookscraperPipeline:
         adapter['available'] = number_of_available
 
         return item
+
+
+import psycopg2
+
+
+class SaveToDBPipeline:
+    def __init__(self):
+        pass
+
+    def process_item(self, item, spider):
+        return item
+        pass
+
+    def close_spider(self, spider):
+        pass
