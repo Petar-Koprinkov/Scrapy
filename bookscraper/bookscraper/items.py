@@ -11,6 +11,18 @@ class BookscraperItem(scrapy.Item):
     # name = scrapy.Field()
     pass
 
+# def stars(value):
+#     if value == 'one':
+#         return 1
+#     elif value == 'two':
+#         return 2
+#     elif value == 'three':
+#         return 3
+#     elif value == 'four':
+#         return 4
+#     elif value == 'five':
+#         return 5
+
 
 class BookItem(scrapy.Item):
     url = scrapy.Field()
