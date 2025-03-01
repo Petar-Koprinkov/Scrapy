@@ -25,4 +25,10 @@ class BookscraperPipeline:
         if stars in star_mapping:
             adapter['stars_count'] = star_mapping[stars]
 
+        availability = adapter.get('available').split('(')
+        available = availability[1]
+        list_number_of_available = available.split(' ')
+        number_of_available = int(list_number_of_available[0])
+        adapter['available'] = number_of_available
+
         return item
