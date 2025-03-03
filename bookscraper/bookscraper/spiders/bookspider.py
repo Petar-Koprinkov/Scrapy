@@ -17,6 +17,8 @@ class BookspiderSpider(scrapy.Spider):
     # }
 
     def parse(self, response):
+        # print(f"Existing settings: {self.settings.attributes.keys()}")
+
         books = response.css('article.product_pod')
 
         for book in books:
@@ -27,7 +29,7 @@ class BookspiderSpider(scrapy.Spider):
             else:
                 book_page = 'https://books.toscrape.com/catalogue/' + book_url
 
-            yield response.follow(book_page, callback=self.parse_book)
+            yield response.follow(url=book_page, callback=self.parse_book)
 
         next_page = response.css('li.next a ::attr(href)').get()
         if next_page is not None:
