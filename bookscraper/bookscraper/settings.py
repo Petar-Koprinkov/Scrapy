@@ -1,4 +1,4 @@
-# Scrapy settings for bookscraper project
+# Scrapy settings for bookscraper projecttttt
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
